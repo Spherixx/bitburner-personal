@@ -19,7 +19,7 @@ export async function main(ns) {
 		haveServers = true;
 		serverCount  = ns.getPurchasedServers().length;
 		customServers = ns.getPurchasedServers();
-		serverRAM = ns.getServerMaxRam(customServers[sererCount]);
+		serverRAM = ns.getServerMaxRam(customServers[serverCount - 1]);
 	} else {
 		haveServers = false;
 	}
@@ -58,7 +58,7 @@ export async function main(ns) {
 		}
 		// ns.tprint(ramToBuy);
 		for (var s = 0; s <= 24; s++) {
-			ns.purchaseServer("Spherix" + s + ramToBuy + "GB", ramToBuy);
+			ns.purchaseServer("Spherix" + s + "-" + ramToBuy + "GB", ramToBuy);
 		}
 		ns.tprint("Purchased servers with: " + ramToBuy + "GB");
 	} else {

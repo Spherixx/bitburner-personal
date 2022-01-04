@@ -17,11 +17,11 @@ export async function main(ns) {
             const headers = []
             const values = [];
             // Add script income per second
-            headers.push("ScrInc");
-            values.push(ns.getScriptIncome()[0].toPrecision(5) + '/sec');
+            headers.push("Scr Income");
+            values.push(ns.getScriptIncome()[0].toFixed() + '/sec');
             // Add script exp gain rate per second
-            headers.push("ScrExp");
-            values.push(ns.getScriptExpGain().toPrecision(5) + '/sec');
+            headers.push("Scr Exp");
+            values.push(ns.getScriptExpGain().toFixed() + '/sec');
             // TODO: Add more neat stuff
 
             // Now drop it into the placeholder elements
