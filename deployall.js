@@ -11,7 +11,8 @@ export async function main(ns) {
     const customServers = ns.getPurchasedServers();
     var customServerCount = 0;
     const currentScript = "basic0.js";
-    var currentTarget = "none";
+    var currentTarget = "ecorp";
+    var customTarget = true;
     var usingCustomServers = false;
     var usingHost = true;
     var stopScripts = true;
@@ -23,7 +24,7 @@ export async function main(ns) {
     var totalThreads = 0;
 
     // checking if gettarget.js exists and running it
-    if (ns.fileExists("gettarget.js", "home") == true) {
+    if (customTarget == false && ns.fileExists("gettarget.js", "home") == true) {
         ns.tprint("Running gettarget.js");
         ns.exec('gettarget.js', ns.getHostname());
         await ns.sleep(500);
@@ -35,7 +36,7 @@ export async function main(ns) {
         } catch (err) {
             ns.tprint(err);
         }
-    } else {
+    } else if (customTarget == true && ns.fileExists("gettarget.js", "home") == false) {
         ns.tprint("Failed to find gettartet.js");
     }
     // looking for nuke.js and running it if exists and nukeAll is true
@@ -129,20 +130,20 @@ export async function main(ns) {
         ns.tprint(`
         ${currentTarget}:
             RAM           : ${targetRAM[1]} / ${targetRAM[0]} (${targetRAM[1] / targetRAM[0] * 100}%)
-            Money         : ${ns.nFormat(targetMoney[1], "$0.000a")} / ${ns.nFormat(targetMoney[0], "$0.000a")} (${targetMoney[2]}%)
+            Money         : ${ns.nFormat(targetMoney[1], "$0.000a")} / ${ns.nFormat(targetMoney[0], "$0.000a")} (${targetMoney[2].toFixed(2)}%)
             Security      : ${targetSecurity[1].toFixed()} / ${targetSecurity[0].toFixed()}
             Growth        : ${ns.getServerGrowth(currentTarget)}
             Hack time     : ${ns.tFormat(ns.getHackTime(currentTarget))}
             Grow time     : ${ns.tFormat(ns.getGrowTime(currentTarget))}
             Weaken time   : ${ns.tFormat(ns.getWeakenTime(currentTarget))}
-            Grow x10      : ${(ns.growthAnalyze(currentTarget, 10)).toFixed()}  threads ${(ns.growthAnalyze(currentTarget, 10)).toFixed() * (ns.getScriptRam(currentScript)).toFixed()} GB RAM
-            Grow x50      : ${(ns.growthAnalyze(currentTarget, 50)).toFixed()}  threads ${(ns.growthAnalyze(currentTarget, 10)).toFixed() * (ns.getScriptRam(currentScript)).toFixed()} GB RAM
-            Grow x100     : ${(ns.growthAnalyze(currentTarget, 100)).toFixed()} threads ${(ns.growthAnalyze(currentTarget, 10)).toFixed() * (ns.getScriptRam(currentScript)).toFixed()} GB RAM
-            Hack 25%      : ${(.25 / ns.hackAnalyze(currentTarget)).toFixed()}  threads ${(ns.growthAnalyze(currentTarget, 10)).toFixed() * (ns.getScriptRam(currentScript)).toFixed()} GB RAM
-            Hack 50%      : ${(.50 / ns.hackAnalyze(currentTarget)).toFixed()}  threads ${(ns.growthAnalyze(currentTarget, 10)).toFixed() * (ns.getScriptRam(currentScript)).toFixed()} GB RAM
-            Hack 75%      : ${(.75 / ns.hackAnalyze(currentTarget)).toFixed()}  threads ${(ns.growthAnalyze(currentTarget, 10)).toFixed() * (ns.getScriptRam(currentScript)).toFixed()} GB RAM
-            Hack 100%     : ${(1 / ns.hackAnalyze(currentTarget)).toFixed()}    threads ${(ns.growthAnalyze(currentTarget, 10)).toFixed() * (ns.getScriptRam(currentScript)).toFixed()} GB RAM
-            Hack Chance   : ${(ns.hackAnalyzeChance(currentTarget) * 100).toFixed(2)}%
+            Grow x10      : ${(ns.growthAnalyze(currentTarget, 10)).toFixed()} threads     ${(ns.growthAnalyze(currentTarget, 10)).toFixed() * (ns.getScriptRam('basic0.js')).toFixed()} GB
+            Grow x50      : ${(ns.growthAnalyze(currentTarget, 50)).toFixed()} threads     ${(ns.growthAnalyze(currentTarget, 50)).toFixed() * (ns.getScriptRam('basic0.js')).toFixed()} GB
+            Grow x100     : ${(ns.growthAnalyze(currentTarget, 100)).toFixed()} threads    ${(ns.growthAnalyze(currentTarget, 100)).toFixed() * (ns.getScriptRam('basic0.js')).toFixed()} GB
+            Hack 25%      : ${(.25 / ns.hackAnalyze(currentTarget)).toFixed()} threads     ${(.25 / ns.hackAnalyze(currentTarget)).toFixed() * (ns.getScriptRam('basic0.js')).toFixed()} GB
+            Hack 50%      : ${(.50 / ns.hackAnalyze(currentTarget)).toFixed()} threads     ${(.50 / ns.hackAnalyze(currentTarget)).toFixed() * (ns.getScriptRam('basic0.js')).toFixed()} GB
+            Hack 75%      : ${(.75 / ns.hackAnalyze(currentTarget)).toFixed()} threads     ${(.75 / ns.hackAnalyze(currentTarget)).toFixed() * (ns.getScriptRam('basic0.js')).toFixed()} GB
+            Hack 100%     : ${(1 / ns.hackAnalyze(currentTarget)).toFixed()} threads       ${(1 / ns.hackAnalyze(currentTarget)).toFixed() * (ns.getScriptRam('basic0.js')).toFixed()} GB
+            Hack Chance   : ${(ns.hackAnalyzeChance(currentTarget) * 100).toFixed(2)}% 
         TOTALS:
             RAM Total     : ${totalRAM} GB
             RAM Used      : ${usedRAM.toFixed()} GB
