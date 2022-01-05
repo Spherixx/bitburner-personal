@@ -8,6 +8,23 @@ export async function main(ns) {
         "solaris", "microdyne", "helios", "deltaone", "icarus", "zeus-med", "omnia", "defcomm", "galactic-cyber", "infocomm",
         "taiyang-digital", "stormtech", "aerocorp", "clarkinc", "omnitek", "nwo", "4sigma", "blade", "b-and-a", "ecorp",
         "fulcrumtech", "megacorp", "kuai-gong", "fulcrumassets", "powerhouse-fitness"];
+
+    const target = "rho-construction";
+    // max money, current money, current money percentage
+    const targetMoney = [ns.getServerMaxMoney(target), ns.getServerMoneyAvailable(target), ns.getServerMoneyAvailable(target) / ns.getServerMaxMoney(target) * 100];
+    // current security level, minimum security level
+    const targetSecurity = [ns.getServerSecurityLevel(target), ns.getServerMinSecurityLevel(target)];
+    // target hack chance
+    const targetChance = (ns.hackAnalyzeChance(target) * 100).toFixed(2);
+    // target 100% hack thread count
+    const targetHackThreads = (1 / ns.hackAnalyze(target)).toFixed(2);
+    // hack time
+    const targetHackTime = ns.getHackTime(target)
+    // grow time
+    const targetGrowTime = ns.getGrowTime(target)
+    // weaken time
+    const targetWeakenTime = ns.getWeakenTime(target)
+
     const customServers = ns.getPurchasedServers();
     const currentScript = "basic0.js";
     const usingHome = true;
@@ -35,4 +52,5 @@ export async function main(ns) {
         Total RAM:      ${availableRAM}
         Total Threads:  ${availableThreads}
     `);
+
 }
