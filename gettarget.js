@@ -31,5 +31,5 @@ export async function main(ns) {
             break;
         }
     }
-    //ns.tprint(Math.max(...targetsMoney)); 
+    //ns.tprint(Math.max(...targetsMoney));
 }

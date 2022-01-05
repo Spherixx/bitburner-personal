@@ -9,39 +9,32 @@ export async function main(ns) {
         "solaris", "aerocorp", "defcomm", "zeus-med"];
 
     for (var i = 0; i < servers.length; i++) {
-        const ram = [ns.getServerMaxRam(servers[i]), ns.getServerUsedRam(servers[i])];
-        const money = ns.getServerMoneyAvailable(servers[i]);
-        const maxMoney = ns.getServerMaxMoney(servers[i]);
-        const minSec = ns.getServerMinSecurityLevel(servers[i]);
-        const sec = ns.getServerSecurityLevel(servers[i]);
+        // max money, current money, current money percentage
+        const targetMoney = [ns.getServerMaxMoney(servers[i]), ns.getServerMoneyAvailable(servers[i]), 
+        ns.getServerMoneyAvailable(servers[i]) / ns.getServerMaxMoney(servers[i]) * 100];
+        // current security level, minimum security level
+        const targetSecurity = [ns.getServerSecurityLevel(servers[i]), ns.getServerMinSecurityLevel(servers[i])];
         var canHack = false;
-        var hasMoney = false;
         if (ns.getServerRequiredHackingLevel(servers[i]) <= ns.getHackingLevel() && ns.getServerMaxMoney(servers[i]) > 0) {
             canHack = true;
             ns.tprint(`
-            ${servers[i]}:
-                RAM         : ${ram[1]} / ${ram[0]} (${ram[1] / ram[0] * 100}%)
-                $           : ${ns.nFormat(money, "$0.000a")} / ${ns.nFormat(maxMoney, "$0.000a")} (${(money / maxMoney * 100).toFixed(2)}%)
-                level req   : ${ns.getServerRequiredHackingLevel(servers[i])}
-                hackable    : ${canHack}
-                security    : ${minSec.toFixed(2)} / ${sec.toFixed(2)}
-                growth      : ${ns.getServerGrowth(servers[i])}
-                hack time   : ${ns.tFormat(ns.getHackTime(servers[i]))}
-                grow time   : ${ns.tFormat(ns.getGrowTime(servers[i]))}
-                weaken time : ${ns.tFormat(ns.getWeakenTime(servers[i]))}
-                grow x2     : ${(ns.growthAnalyze(servers[i], 2)).toFixed(2)} threads
-                grow x3     : ${(ns.growthAnalyze(servers[i], 3)).toFixed(2)} threads
-                grow x4     : ${(ns.growthAnalyze(servers[i], 4)).toFixed(2)} threads
-                hack 10%    : ${(.10 / ns.hackAnalyze(servers[i])).toFixed(2)} threads
-                hack 25%    : ${(.25 / ns.hackAnalyze(servers[i])).toFixed(2)} threads
-                hack 50%    : ${(.50 / ns.hackAnalyze(servers[i])).toFixed(2)} threads
-                hack 75%    : ${(.75 / ns.hackAnalyze(servers[i])).toFixed(2)} threads
-                hack 100%   : ${(1 / ns.hackAnalyze(servers[i])).toFixed(2)} threads
-                hackChance  : ${(ns.hackAnalyzeChance(servers[i]) * 100).toFixed(2)}%`);
-        }
-        if (ns.getServerMaxMoney(servers[i]) > 0) {
-            hasMoney = true
-        }
+    ${servers[i]}:
+            Money         : ${ns.nFormat(targetMoney[1], "$0.000a")} / ${ns.nFormat(targetMoney[0], "$0.000a")} (${targetMoney[2].toFixed(2)}%)
+            Security      : ${targetSecurity[1].toFixed()} / ${targetSecurity[0].toFixed()}
+            Growth        : ${ns.getServerGrowth(servers[i])}
+            Hack time     : ${ns.tFormat(ns.getHackTime(servers[i]))}
+            Grow time     : ${ns.tFormat(ns.getGrowTime(servers[i]))}
+            Weaken time   : ${ns.tFormat(ns.getWeakenTime(servers[i]))}
+            Grow x10      : ${(ns.growthAnalyze(servers[i], 10)).toFixed()} threads     ${(ns.growthAnalyze(servers[i], 10)).toFixed() * (ns.getScriptRam('basic0.js')).toFixed()} GB
+            Grow x50      : ${(ns.growthAnalyze(servers[i], 50)).toFixed()} threads     ${(ns.growthAnalyze(servers[i], 10)).toFixed() * (ns.getScriptRam('basic0.js')).toFixed()} GB
+            Grow x100     : ${(ns.growthAnalyze(servers[i], 100)).toFixed()} threads    ${(ns.growthAnalyze(servers[i], 10)).toFixed() * (ns.getScriptRam('basic0.js')).toFixed()} GB
+            Hack 25%      : ${(.25 / ns.hackAnalyze(servers[i])).toFixed()} threads     ${(ns.growthAnalyze(servers[i], 10)).toFixed() * (ns.getScriptRam('basic0.js')).toFixed()} GB
+            Hack 50%      : ${(.50 / ns.hackAnalyze(servers[i])).toFixed()} threads     ${(ns.growthAnalyze(servers[i], 10)).toFixed() * (ns.getScriptRam('basic0.js')).toFixed()} GB
+            Hack 75%      : ${(.75 / ns.hackAnalyze(servers[i])).toFixed()} threads     ${(ns.growthAnalyze(servers[i], 10)).toFixed() * (ns.getScriptRam('basic0.js')).toFixed()} GB
+            Hack 100%     : ${(1 / ns.hackAnalyze(servers[i])).toFixed()} threads   ${(ns.growthAnalyze(servers[i], 10)).toFixed() * (ns.getScriptRam('basic0.js')).toFixed()} GB
+            Hack Chance   : ${(ns.hackAnalyzeChance(servers[i]) * 100).toFixed(2)}% 
+            `);
 
+        }
     }
 }
