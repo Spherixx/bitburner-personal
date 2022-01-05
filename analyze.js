@@ -25,8 +25,8 @@ ${server}:
     grow time   : ${ns.tFormat(ns.getGrowTime(server))}
     weaken time : ${ns.tFormat(ns.getWeakenTime(server))}
     grow x2     : ${(ns.growthAnalyze(server, 2)).toFixed(2)} threads
-    grow x3     : ${(ns.growthAnalyze(server, 3)).toFixed(2)} threads
-    grow x4     : ${(ns.growthAnalyze(server, 4)).toFixed(2)} threads
+    grow x10     : ${(ns.growthAnalyze(server, 3)).toFixed(2)} threads
+    grow x50     : ${(ns.growthAnalyze(server, 4)).toFixed(2)} threads
     grow x100   : ${(ns.growthAnalyze(server, 100)).toFixed(2)} threads
     hack 10%    : ${(.10 / ns.hackAnalyze(server)).toFixed(2)} threads
     hack 25%    : ${(.25 / ns.hackAnalyze(server)).toFixed(2)} threads

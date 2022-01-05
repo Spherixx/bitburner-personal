@@ -10,12 +10,17 @@ export async function main(ns) {
         "fulcrumtech", "megacorp", "kuai-gong", "fulcrumassets", "powerhouse-fitness", ".", "run4theh111z"];
     const customServers = ns.getPurchasedServers();
 
+    ns.tprint("Killing scripts on normal servers");
 	for (var i = 0; i < servers.length; i++) {
 		ns.killall(servers[i]);
 	}
+    await ns.sleep(200);
+    ns.tprint("Killing scripts on custom servers");
 	for (var j = 0; j < customServers.length; j++) {
-		ns.killall(servers[i]);
+		ns.killall(customServers[j]);
 	}
+    await ns.sleep(200);
+    ns.tprint("Killing scripts home server");
 	ns.scriptKill('basic0.js', ns.getHostname());
 
 }

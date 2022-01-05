@@ -8,24 +8,40 @@ export async function main(ns) {
         "solaris", "microdyne", "helios", "deltaone", "icarus", "zeus-med", "omnia", "defcomm", "galactic-cyber", "infocomm",
         "taiyang-digital", "stormtech", "aerocorp", "clarkinc", "omnitek", "nwo", "4sigma", "blade", "b-and-a", "ecorp",
         "fulcrumtech", "megacorp", "kuai-gong", "fulcrumassets", "powerhouse-fitness", ".", "run4theh111z"];
+
     var virusCount = 0;
+    var virusList = [];
+
     if (ns.fileExists("BruteSSH.exe", "home") == true) {
         virusCount++;
+        virusList[0] = "BruteSSH.exe";
+    } else {
+        ns.tprint("Failed to find BruteSSH.exe");
     }
     if (ns.fileExists("FTPCrack.exe", "home") == true) {
-        virusCount++;
+        virusList[1] = "BruteSSH.exe";
+    } else {
+        ns.tprint("Failed to find FTPCrack.exe");
     }
     if (ns.fileExists("relaySMTP.exe", "home") == true) {
-        virusCount++;
+        virusList[2] = "BruteSSH.exe";
+    } else {
+        ns.tprint("Failed to find relaySMTP.exe");
     }
     if (ns.fileExists("HTTPWorm.exe", "home") == true) {
-        virusCount++;
+        virusList[3] = "BruteSSH.exe";
+    } else {
+        ns.tprint("Failed to find HTTPWorm.exe");
     }
     if (ns.fileExists("SQLInject.exe", "home") == true) {
-        virusCount++;
+        virusList[4] = "BruteSSH.exe";
+    } else {
+        ns.tprint("Failed to find SQLInject.exe");
     }
+    ns.tprint(`Found ${virusList}`);
+
     for (var i = 0; i < servers.length; i++) {
-        if (ns.hasRootAccess == false) {
+        if (ns.hasRootAccess(servers[i]) == false) {
             if (ns.getServerNumPortsRequired(servers[i]) == 0) {
                 ns.tprint(`Nuking ${servers[i]}`);
                 ns.nuke(servers[i]);

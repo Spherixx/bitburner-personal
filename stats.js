@@ -18,7 +18,7 @@ export async function main(ns) {
             const values = [];
             // Add script income per second
             headers.push("Scr Income");
-            values.push(ns.getScriptIncome()[0].toFixed() + '/sec');
+            values.push(ns.nFormat(ns.getScriptIncome()[0], "$0.000a") + '/sec');
             // Add script exp gain rate per second
             headers.push("Scr Exp");
             values.push(ns.getScriptExpGain().toFixed() + '/sec');

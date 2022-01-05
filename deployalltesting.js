@@ -19,11 +19,11 @@ export async function main(ns) {
     // target 100% hack thread count
     const targetHackThreads = (1 / ns.hackAnalyze(target)).toFixed(2);
     // hack time
-    const targetHackTime = ns.getHackTime(target)
+    const targetHackTime = ns.getHackTime(target);
     // grow time
-    const targetGrowTime = ns.getGrowTime(target)
+    const targetGrowTime = ns.getGrowTime(target);
     // weaken time
-    const targetWeakenTime = ns.getWeakenTime(target)
+    const targetWeakenTime = ns.getWeakenTime(target);
 
     const customServers = ns.getPurchasedServers();
     const currentScript = "basic0.js";
