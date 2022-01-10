@@ -14,9 +14,7 @@ export async function main(ns) {
     var targetMoney = 0;
     for (var i = 0; i < servers.length; i++) {
         //ns.tprint(`Checking ${servers[i]}`);
-        if (ns.getServerRequiredHackingLevel(servers[i]) <= ns.getHackingLevel() 
-        && ns.getServerMaxMoney(servers[i]) > 1000 
-        && (ns.hackAnalyzeChance(servers[i]) * 100).toFixed(2) > 45) {
+        if (ns.getServerRequiredHackingLevel(servers[i]) <= ns.getHackingLevel() && ns.getServerMaxMoney(servers[i]) > 1000) {
             //ns.tprint(`${servers[i]} OK`);
             targets[targetsCounter] = servers[i];
             targetsMoney[targetsCounter] = ns.getServerMaxMoney(targets[targetsCounter])

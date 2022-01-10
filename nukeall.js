@@ -19,26 +19,30 @@ export async function main(ns) {
         ns.tprint("Failed to find BruteSSH.exe");
     }
     if (ns.fileExists("FTPCrack.exe", "home") == true) {
-        virusList[1] = "BruteSSH.exe";
+        virusCount++;
+        virusList[1] = "FTPCrack.exe";
     } else {
         ns.tprint("Failed to find FTPCrack.exe");
     }
     if (ns.fileExists("relaySMTP.exe", "home") == true) {
-        virusList[2] = "BruteSSH.exe";
+        virusCount++;
+        virusList[2] = "relaySMTP.exe";
     } else {
         ns.tprint("Failed to find relaySMTP.exe");
     }
     if (ns.fileExists("HTTPWorm.exe", "home") == true) {
-        virusList[3] = "BruteSSH.exe";
+        virusCount++;
+        virusList[3] = "HTTPWorm.exe";
     } else {
         ns.tprint("Failed to find HTTPWorm.exe");
     }
     if (ns.fileExists("SQLInject.exe", "home") == true) {
-        virusList[4] = "BruteSSH.exe";
+        virusCount++;
+        virusList[4] = "SQLInject.exe";
     } else {
         ns.tprint("Failed to find SQLInject.exe");
     }
-    ns.tprint(`Found ${virusList}`);
+    ns.tprint(`Found ${virusCount}; ${virusList}`);
 
     for (var i = 0; i < servers.length; i++) {
         if (ns.hasRootAccess(servers[i]) == false) {
@@ -68,7 +72,7 @@ export async function main(ns) {
                 ns.httpworm(servers[i]);
                 ns.nuke(servers[i]);
             } else if (ns.getServerNumPortsRequired(servers[i]) == 5 && virusCount == 5) {
-                ns.tprint(`Running 4 virus' and Nuking ${servers[i]}`);
+                ns.tprint(`Running 5 virus' and Nuking ${servers[i]}`);
                 ns.brutessh(servers[i]);
                 ns.ftpcrack(servers[i]);
                 ns.relaysmtp(servers[i]);
